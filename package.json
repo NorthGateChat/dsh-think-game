@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "dsh-think-game",
   "version": "0.2.0",
   "private": true,
@@ -18,11 +18,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ALANXIAORUI/dsh-think-game.git"
+    "url": "git+https://github.com/NorthGateChat/dsh-think-game.git"
   },
-  "homepage": "https://github.com/ALANXIAORUI/dsh-think-game#readme",
+  "homepage": "https://github.com/NorthGateChat/dsh-think-game#readme",
   "bugs": {
-    "url": "https://github.com/ALANXIAORUI/dsh-think-game/issues"
+    "url": "https://github.com/NorthGateChat/dsh-think-game/issues"
   },
   "exports": {
     ".": "./index.js",
@@ -59,3 +59,4 @@
     }
   }
 }
+

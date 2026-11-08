@@ -1,6 +1,6 @@
 # 思考小游戏 (dsh-think-game) · DSH Client 插件
 
-> 开源仓库：<https://github.com/ALANXIAORUI/dsh-think-game> · MIT License
+> 开源仓库：<https://github.com/NorthGateChat/dsh-think-game> · MIT License
 
 在会话流里，紧挨着正在运行的那一行 **「深度求索中，用时 36秒 ···」思考模块下方**，自动出现一个轻量游戏面板。
 不需要展开思考内容；思考/工作过程结束时面板冻结并淡出，收起后不留痕迹。
@@ -22,7 +22,7 @@
 
 ```powershell
 # 从 GitHub 安装（仓库发布后）
-dsh plugin --profile desktop add github:ALANXIAORUI/dsh-think-game
+dsh plugin --profile desktop add github:NorthGateChat/dsh-think-game
 
 # 或本地开发安装
 dsh plugin --profile desktop add link:/path/to/think-game
