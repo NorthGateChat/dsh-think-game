@@ -8,6 +8,20 @@ thinking/working process ends the panel pauses, fades out and leaves no residue 
 
 **中文**: [README.md](README.md)
 
+## Demos
+
+Send a message → the model starts “Deep diving…” → the panel appears below the live reasoning row → play while waiting → the answer starts and the game pauses with a **Continue** entry.
+
+<a href="docs/demo/demo.mp4"><img src="docs/demo/flow.gif" width="700" alt="Sending a message, playing during thinking, auto-pausing when the answer starts"></a>
+
+[▶ Full 19-second launch video](docs/demo/demo.mp4)
+
+| Breakout | Snake | Reflex | 2048 |
+|---|---|---|---|
+| <img src="docs/demo/game-breakout.gif" width="250"> | <img src="docs/demo/game-snake.gif" width="250"> | <img src="docs/demo/game-reaction.gif" width="250"> | <img src="docs/demo/game-2048.gif" width="250"> |
+| **Memory** | **Stack** | **Flappy** | |
+| <img src="docs/demo/game-memory.gif" width="250"> | <img src="docs/demo/game-stack.gif" width="250"> | <img src="docs/demo/game-flappy.gif" width="250"> | |
+
 ## Install
 
 ```powershell

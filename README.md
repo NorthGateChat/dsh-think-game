@@ -7,6 +7,46 @@
 
 **English**: a dependency-free DSH client plugin that puts a compact, theme-aware arcade directly below the live reasoning module. Seven small games (Breakout, Snake, Reflex, 2048, Memory, Stack, Flappy) share one minimal DSH-style panel. It appears while the model works, auto-pauses and fades when the answer starts, supports random rotation or a pinned game, remembers best scores, and keeps keyboard input isolated from the composer. An optional “Continue” entry lets you finish a run after the answer starts. MIT licensed.
 
+## 效果演示
+
+发一条消息 → 模型开始「深度求索中」→ 面板出现在思考行下方 → 边等边玩 → 回答开始，自动暂停并留下「继续上局」。
+
+<a href="docs/demo/demo.mp4"><img src="docs/demo/flow.gif" width="700" alt="发送消息后在 DeepSeek Harness 思考过程中游玩，回答开始时自动暂停"></a>
+
+[▶ 完整 19 秒发布视频](docs/demo/demo.mp4) · [English demos](README.en.md#demos)
+
+## 七款游戏 · 动态演示
+
+<a href="docs/demo/game-breakout.gif"><img src="docs/demo/game-breakout.gif" width="520" alt="打砖块动态演示"></a>
+
+**砖块 Breakout** — 鼠标移动挡板 / `←` `→`，点击或 `Space` 发球；每局随机砖块布局。
+
+<a href="docs/demo/game-snake.gif"><img src="docs/demo/game-snake.gif" width="520" alt="贪吃蛇动态演示"></a>
+
+**贪吃蛇 Snake** — 方向键 / WASD，或把鼠标移向蛇头方向转向；`Space`/点击开始。
+
+<a href="docs/demo/game-reaction.gif"><img src="docs/demo/game-reaction.gif" width="520" alt="反应力动态演示"></a>
+
+**反应力 Reflex** — 点击亮起的目标格，或按 `1`–`9` 对应九宫格；记录命中、平均反应 ms 和失误。
+
+<a href="docs/demo/game-2048.gif"><img src="docs/demo/game-2048.gif" width="520" alt="2048 动态演示"></a>
+
+**2048** — 方向键 / WASD 滑动方块；记录得分与最大方块。
+
+<a href="docs/demo/game-memory.gif"><img src="docs/demo/game-memory.gif" width="520" alt="记忆翻牌动态演示"></a>
+
+**记忆翻牌 Memory** — 点击翻牌，配对所有 6 对；记录配对数与步数。
+
+<a href="docs/demo/game-stack.gif"><img src="docs/demo/game-stack.gif" width="520" alt="堆塔动态演示"></a>
+
+**堆塔 Stack** — `Space` / 点击放下方块；记录高度，速度会越叠越快。
+
+<a href="docs/demo/game-flappy.gif"><img src="docs/demo/game-flappy.gif" width="520" alt="飞行 Flappy 动态演示"></a>
+
+**飞行 Flappy** — `Space` / 点击向上飞、躲开柱子；记录得分。
+
+> 面板里默认是「本轮挑战：<游戏> ⌄」：点开可选「随机」+ 七款游戏，选具体游戏即固定为常玩（跨会话保持）。
+
 | 游戏 | 操作 | 计分 |
 |---|---|---|
 | 砖块（Breakout） | 鼠标移动挡板 / `←` `→`，点击或 `Space` 发球 | 得分、关卡、剩余机会（每局随机砖块布局） |
