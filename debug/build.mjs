@@ -264,7 +264,6 @@ const pageScript = String.raw`
   }
 
   /* --- panel chrome (same class names as the plugin) --------------------- */
-  $('challengeName').textContent = TAB_LABEL[kind];
   $('challengeLabel').textContent = pinned === '' ? '本轮挑战：' : '固定挑战：';
   $('switchBtn').innerHTML = '<span class="dtg-challenge-name" id="challengeName">' + TAB_LABEL[kind] + '</span><span class="dtg-chevron" id="chevron">' + ICONS.chevron + '</span>';
   $('menu').innerHTML = '';
@@ -335,6 +334,7 @@ const pageScript = String.raw`
     var current = ensure(kind);
     resize();
     $('challengeLabel').textContent = pinned === '' ? '本轮挑战：' : '固定挑战：';
+    $('challengeName').textContent = TAB_LABEL[kind];
     var options = $('menu').children;
     for (var i = 0; i < options.length; i += 1) options[i].setAttribute('aria-checked', options[i].getAttribute('data-kind') === pinned ? 'true' : 'false');
     log('切换到 ' + TAB_LABEL[kind] + (pinned === '' ? '（随机）' : '（固定）'));
