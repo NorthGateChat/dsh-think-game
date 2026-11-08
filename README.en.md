@@ -12,11 +12,9 @@ thinking/working process ends the panel pauses, fades out and leaves no residue 
 
 Send a message → the model starts “Deep diving…” → the panel appears below the live reasoning row → play while waiting → the answer starts and the game pauses with a **Continue** entry.
 
-<a href="docs/demo/demo.mp4"><img src="docs/demo/flow.gif" width="700" alt="Sending a message, playing during thinking, auto-pausing when the answer starts"></a>
+<img src="docs/demo/flow.gif" width="700" alt="Sending a message, playing during thinking, auto-pausing when the answer starts">
 
 > Recorded with the repo's debug harness using the real `client.js` panel and game engines; the chat shell is a demo layout that shows the whole “send → think → play → answer starts” flow.
-
-[▶ Full 19-second launch video](docs/demo/demo.mp4)
 
 | Breakout | Snake | Reflex | 2048 |
 |---|---|---|---|
