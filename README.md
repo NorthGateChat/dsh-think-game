@@ -13,6 +13,8 @@
 
 <a href="docs/demo/demo.mp4"><img src="docs/demo/flow.gif" width="700" alt="发送消息后在 DeepSeek Harness 思考过程中游玩，回答开始时自动暂停"></a>
 
+> 动图由仓库自带的 debug harness 录制，运行的是真实 `client.js` 面板和游戏引擎；聊天外壳是演示布局，用于呈现「发消息 → 思考 → 游玩 → 回答开始暂停」的完整过程。
+
 [▶ 完整 19 秒发布视频](docs/demo/demo.mp4) · [English demos](README.en.md#demos)
 
 ## 七款游戏 · 动态演示
