@@ -90,7 +90,7 @@ function boot() {
 let I;
 check('inline client boots and exposes internals', () => {
   I = boot();
-  assert(Array.isArray(I.KINDS) && I.KINDS.length === 3, 'three game kinds');
+  assert(Array.isArray(I.KINDS) && I.KINDS.length === 7, 'seven game kinds');
 });
 
 check('breakout / snake / reaction run a few frames', () => {
@@ -106,6 +106,28 @@ check('breakout / snake / reaction run a few frames', () => {
   I.pointerDown(reaction, 5, 5);
   I.stepGame(reaction, 0.01);
   assert(reaction.phase === 'playing' && reaction.target !== null, 'reaction running');
+});
+
+check('2048 / memory / stack / flappy run a few frames', () => {
+  const game2048 = I.createGame('2048');
+  I.layoutGame(game2048, 480, 150);
+  I.keyDown(game2048, 'ArrowLeft');
+  assert(game2048.phase === 'playing', '2048 running');
+  const memory = I.createGame('memory');
+  I.layoutGame(memory, 480, 150);
+  const cell = memory.cells[0];
+  I.pointerDown(memory, cell.x + cell.w / 2, cell.y + cell.h / 2);
+  assert(memory.phase === 'playing' && memory.cards[0].state === 'up', 'memory flipped');
+  const stack = I.createGame('stack');
+  I.layoutGame(stack, 480, 150);
+  I.startOrResume(stack);
+  assert(stack.phase === 'playing', 'stack running');
+  const flappy = I.createGame('flappy');
+  I.layoutGame(flappy, 480, 150);
+  I.startOrResume(flappy);
+  I.keyDown(flappy, ' ');
+  I.stepGame(flappy, 0.05);
+  assert(flappy.phase === 'playing' && flappy.pipes.length >= 1, 'flappy running');
 });
 
 check('drawGame renders without throwing (no-op canvas context)', () => {

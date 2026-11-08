@@ -1,8 +1,8 @@
 {
   "name": "dsh-think-game",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "A tiny Breakout / Snake / Reflex arcade that lives inside streaming reasoning and pauses when the answer starts.",
+  "description": "A tiny Breakout / Snake / Reflex / 2048 / Memory / Stack / Flappy arcade that lives inside streaming reasoning and pauses when the answer starts.",
   "license": "MIT",
   "type": "module",
   "icon": "./icon.svg",

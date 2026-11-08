@@ -309,6 +309,11 @@ check('hasProgress handles all games and finished states', () => {
   equal(I.hasProgress({ kind: 'snake', phase: 'playing', score: 10 }), true, 'snake score');
   equal(I.hasProgress({ kind: 'reaction', phase: 'playing', hits: 0 }), false, 'fresh reaction');
   equal(I.hasProgress({ kind: 'reaction', phase: 'playing', hits: 2 }), true, 'reaction hits');
+  equal(I.hasProgress({ kind: '2048', phase: 'playing', score: 8 }), true, '2048 score');
+  equal(I.hasProgress({ kind: '2048', phase: 'playing', score: 0 }), false, 'fresh 2048');
+  equal(I.hasProgress({ kind: 'memory', phase: 'playing', pairs: 1 }), true, 'memory pairs');
+  equal(I.hasProgress({ kind: 'stack', phase: 'playing', blocks: [{}, {}] }), true, 'stack height');
+  equal(I.hasProgress({ kind: 'flappy', phase: 'playing', score: 1 }), true, 'flappy score');
   equal(I.hasProgress({ kind: 'breakout', phase: 'over', score: 100, level: 2, lives: 0 }), false, 'finished game');
 });
 

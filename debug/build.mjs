@@ -130,24 +130,36 @@ body {
 const pageScript = String.raw`
 (function () {
   'use strict';
-  var KINDS = ['breakout', 'snake', 'reaction'];
-  var TAB_LABEL = { breakout: '砖块', snake: '贪吃蛇', reaction: '反应力' };
+  var KINDS = ['breakout', 'snake', 'reaction', '2048', 'memory', 'stack', 'flappy'];
+  var TAB_LABEL = { breakout: '砖块', snake: '贪吃蛇', reaction: '反应力', '2048': '2048', memory: '记忆', stack: '堆塔', flappy: '飞行' };
   var HINT = {
     breakout: '鼠标或 ← → 移动 · 空格发球 · P 暂停 · R 重开',
     snake: '方向键 / WASD 或鼠标转向 · 空格开始 · P 暂停 · R 重开',
     reaction: '点击目标或按 1–9 · P 暂停 · R 重开',
+    '2048': '方向键 / WASD 滑动方块 · P 暂停 · R 重开',
+    memory: '点击翻牌配对 · P 暂停 · R 重开',
+    stack: '空格或点击放下方块 · P 暂停 · R 重开',
+    flappy: '空格或点击向上飞 · P 暂停 · R 重开',
   };
   var READY = {
     breakout: '点击画面或按空格发球',
     snake: '按空格或点击画面开始',
     reaction: '点击目标或按 1–9 开始',
+    '2048': '按方向键 / WASD 开始',
+    memory: '点击卡片开始',
+    stack: '按空格或点击放下第一块',
+    flappy: '按空格或点击起飞',
   };
   var OVER = {
     breakout: '本局结束 · 重开一局',
     snake: '撞到了 · 重开一局',
     reaction: '本局结束 · 重开一局',
+    '2048': '没有可移动的方块 · 重开一局',
+    memory: '全部配对完成 · 重开换一副牌',
+    stack: '没接住 · 重开一局',
+    flappy: '撞到了 · 重开一局',
   };
-  var METRIC_LABEL = { score: '得分', level: '第{n}关', lives: '机会{n}', length: '长度{n}', hits: '命中{n}', avg: '均{n}ms', misses: '失误{n}' };
+  var METRIC_LABEL = { score: '得分{n}', level: '第{n}关', lives: '机会{n}', length: '长度{n}', hits: '命中{n}', avg: '均{n}ms', misses: '失误{n}', tile: '最大{n}', pairs: '配对{n}', moves: '步数{n}', height: '高度{n}' };
   var STAGE_H = 150;
   var ICONS = {
     play: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.5 3.2c0-.8.9-1.3 1.6-.9l6 4.1c.6.4.6 1.3 0 1.7l-6 4.1c-.7.4-1.6-.1-1.6-.9V3.2z"/></svg>',
@@ -509,7 +521,7 @@ const html = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>think-game 调试页 · 打砖块 / 贪吃蛇 / 反应力</title>
+<title>think-game 调试页 · 砖块 / 贪吃蛇 / 反应力 / 2048 / 记忆 / 堆塔 / 飞行</title>
 <style id="ds-theme-tokens">${themeCss}</style>
 <style>${pageCss}</style>
 </head>

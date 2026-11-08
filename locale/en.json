@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Think arcade (dsh-think-game)",
-    "description": "A tiny Breakout / Snake / Reflex arcade under streaming reasoning; it auto-pauses and fades when the answer starts."
+    "description": "A tiny Breakout / Snake / Reflex / 2048 / Memory / Stack / Flappy arcade under streaming reasoning; it auto-pauses and fades when the answer starts."
   }
 }

@@ -21,13 +21,17 @@ window.__ModuleLoader__.load({
 	factory(require) {
 		const NS = 'thinkGame';
 		const STAGE_H = 150;
-		const KINDS = ['breakout', 'snake', 'reaction'];
+		const KINDS = ['breakout', 'snake', 'reaction', '2048', 'memory', 'stack', 'flappy'];
 
 		const EN = {
 			title: 'Think arcade',
 			tabBreakout: 'Breakout',
 			tabSnake: 'Snake',
 			tabReaction: 'Reflex',
+			tab2048: '2048',
+			tabMemory: 'Memory',
+			tabStack: 'Stack',
+			tabFlappy: 'Flappy',
 			randomGame: 'Random',
 			challenge: 'Challenge: ',
 			challengePinned: 'Pinned: ',
@@ -47,6 +51,8 @@ window.__ModuleLoader__.load({
 			bestScore: 'Best {n}',
 			bestLength: 'Longest {n}',
 			bestAvg: 'Fastest {n}ms',
+			bestMoves: 'Fewest {n} moves',
+			bestHeight: 'Height {n}',
 			hint: 'Hint',
 			score: 'Score {score}',
 			level: 'Level {level}',
@@ -55,6 +61,10 @@ window.__ModuleLoader__.load({
 			hits: 'Hits {hits}',
 			avg: 'Avg {ms}ms',
 			misses: 'Misses {misses}',
+			tile: 'Max {tile}',
+			pairs: 'Pairs {pairs}',
+			moves: 'Moves {moves}',
+			height: 'Height {height}',
 			start: 'Start',
 			pause: 'Pause',
 			resume: 'Resume',
@@ -66,12 +76,28 @@ window.__ModuleLoader__.load({
 			'snake.over': 'Crashed · Restart to try again',
 			'reaction.ready': 'Click a target or press 1–9 to start',
 			'reaction.over': 'Round over · Restart to play again',
+			'2048.ready': 'Use arrow keys / WASD to start',
+			'2048.over': 'No moves left · Restart to play again',
+			'memory.ready': 'Click a card to start',
+			'memory.over': 'All pairs found · Restart for a new deck',
+			'stack.ready': 'Press Space or click to drop the first block',
+			'stack.over': 'Missed the tower · Restart to try again',
+			'flappy.ready': 'Press Space or click to take off',
+			'flappy.over': 'Crashed · Restart to try again',
 			'hint.breakout': 'Mouse or ← → · Space serve · P pause · R restart',
 			'hint.snake': 'Arrows / WASD or mouse to steer · Space start · P pause · R restart',
 			'hint.reaction': 'Click a target or press 1–9 · P pause · R restart',
+			'hint.2048': 'Arrows / WASD slide tiles · P pause · R restart',
+			'hint.memory': 'Click cards to flip pairs · P pause · R restart',
+			'hint.stack': 'Space or click to drop · P pause · R restart',
+			'hint.flappy': 'Space or click to flap · P pause · R restart',
 			'aria.breakout': 'Reasoning waiting game: Breakout',
 			'aria.snake': 'Reasoning waiting game: Snake',
 			'aria.reaction': 'Reasoning waiting game: Reflex',
+			'aria.2048': 'Reasoning waiting game: 2048',
+			'aria.memory': 'Reasoning waiting game: Memory',
+			'aria.stack': 'Reasoning waiting game: Stack',
+			'aria.flappy': 'Reasoning waiting game: Flappy',
 			copy: 'Copy',
 			copied: 'Copied',
 			codeTitle: 'Code block',
@@ -85,6 +111,10 @@ window.__ModuleLoader__.load({
 			tabBreakout: '砖块',
 			tabSnake: '贪吃蛇',
 			tabReaction: '反应力',
+			tab2048: '2048',
+			tabMemory: '记忆',
+			tabStack: '堆塔',
+			tabFlappy: '飞行',
 			randomGame: '随机',
 			challenge: '本轮挑战：',
 			challengePinned: '固定挑战：',
@@ -104,6 +134,8 @@ window.__ModuleLoader__.load({
 			bestScore: '最高 {n}',
 			bestLength: '最长 {n}',
 			bestAvg: '最快 {n}ms',
+			bestMoves: '最少 {n} 步',
+			bestHeight: '高度 {n}',
 			hint: '提示',
 			score: '得分 {score}',
 			level: '第 {level} 关',
@@ -112,6 +144,10 @@ window.__ModuleLoader__.load({
 			hits: '命中 {hits}',
 			avg: '均 {ms}ms',
 			misses: '失误 {misses}',
+			tile: '最大 {tile}',
+			pairs: '配对 {pairs}',
+			moves: '步数 {moves}',
+			height: '高度 {height}',
 			start: '开始',
 			pause: '暂停',
 			resume: '继续',
@@ -123,12 +159,28 @@ window.__ModuleLoader__.load({
 			'snake.over': '撞到了 · 重开一局',
 			'reaction.ready': '点击目标或按 1–9 开始',
 			'reaction.over': '本局结束 · 重开一局',
+			'2048.ready': '按方向键 / WASD 开始',
+			'2048.over': '没有可移动的方块 · 重开一局',
+			'memory.ready': '点击卡片开始',
+			'memory.over': '全部配对完成 · 重开换一副牌',
+			'stack.ready': '按空格或点击放下第一块',
+			'stack.over': '没接住 · 重开一局',
+			'flappy.ready': '按空格或点击起飞',
+			'flappy.over': '撞到了 · 重开一局',
 			'hint.breakout': '鼠标或 ← → 移动 · 空格发球 · P 暂停 · R 重开',
 			'hint.snake': '方向键 / WASD 或鼠标转向 · 空格开始 · P 暂停 · R 重开',
 			'hint.reaction': '点击目标或按 1–9 · P 暂停 · R 重开',
+			'hint.2048': '方向键 / WASD 滑动方块 · P 暂停 · R 重开',
+			'hint.memory': '点击翻牌配对 · P 暂停 · R 重开',
+			'hint.stack': '空格或点击放下方块 · P 暂停 · R 重开',
+			'hint.flappy': '空格或点击向上飞 · P 暂停 · R 重开',
 			'aria.breakout': '思考等待小游戏：打砖块',
 			'aria.snake': '思考等待小游戏：贪吃蛇',
 			'aria.reaction': '思考等待小游戏：反应力',
+			'aria.2048': '思考等待小游戏：2048',
+			'aria.memory': '思考等待小游戏：记忆翻牌',
+			'aria.stack': '思考等待小游戏：堆塔',
+			'aria.flappy': '思考等待小游戏：飞行',
 			copy: '复制',
 			copied: '已复制',
 			codeTitle: '代码块',
@@ -315,6 +367,13 @@ window.__ModuleLoader__.load({
 				else if (name === 'lose') tone(240, 0.16, 'sawtooth', 0.02, 0, 110);
 				else if (name === 'level') { tone(640, 0.08, 'sine', 0.024); tone(880, 0.12, 'sine', 0.022, 0.08); }
 				else if (name === 'eat') tone(700, 0.05, 'triangle', 0.026, 0, 940);
+				else if (name === 'flip') tone(520, 0.045, 'sine', 0.02, 0, 620);
+				else if (name === 'match') { tone(660, 0.06, 'sine', 0.022); tone(880, 0.1, 'sine', 0.02, 0.06); }
+				else if (name === 'move') tone(260, 0.04, 'sine', 0.018, 0, 300);
+				else if (name === 'drop') tone(300, 0.06, 'triangle', 0.025, 0, 210);
+				else if (name === 'perfect') { tone(620, 0.06, 'sine', 0.024); tone(930, 0.1, 'sine', 0.022, 0.06); }
+				else if (name === 'flap') tone(560, 0.04, 'sine', 0.016, 0, 680);
+				else if (name === 'point') tone(880, 0.05, 'sine', 0.022);
 				else if (name === 'die') tone(180, 0.22, 'sawtooth', 0.022, 0, 70);
 				else if (name === 'hit') tone(880, 0.05, 'sine', 0.024);
 				else if (name === 'miss') tone(200, 0.09, 'triangle', 0.02, 0, 140);
@@ -335,36 +394,55 @@ window.__ModuleLoader__.load({
 		function createGame(kind) {
 			if (kind === 'snake') return createSnake();
 			if (kind === 'reaction') return createReaction();
+			if (kind === '2048') return create2048();
+			if (kind === 'memory') return createMemory();
+			if (kind === 'stack') return createStack();
+			if (kind === 'flappy') return createFlappy();
 			return createBreakout();
 		}
 
 		function resetGame(game) {
 			if (game.kind === 'snake') return resetSnake(game);
 			if (game.kind === 'reaction') return resetReaction(game);
+			if (game.kind === '2048') return reset2048(game);
+			if (game.kind === 'memory') return resetMemory(game);
+			if (game.kind === 'stack') return resetStack(game);
+			if (game.kind === 'flappy') return resetFlappy(game);
 			return resetBreakout(game);
 		}
 
 		function layoutGame(game, width, height) {
 			if (game.kind === 'snake') return layoutSnake(game, width, height);
 			if (game.kind === 'reaction') return layoutReaction(game, width, height);
+			if (game.kind === '2048') return layout2048(game, width, height);
+			if (game.kind === 'memory') return layoutMemory(game, width, height);
+			if (game.kind === 'stack') return layoutStack(game, width, height);
+			if (game.kind === 'flappy') return layoutFlappy(game, width, height);
 			return layoutBreakout(game, width, height);
 		}
 
 		function stepGame(game, dt) {
 			if (game.kind === 'snake') return stepSnake(game, dt);
 			if (game.kind === 'reaction') return stepReaction(game, dt);
+			if (game.kind === '2048') return undefined;
+			if (game.kind === 'memory') return stepMemory(game, dt);
+			if (game.kind === 'stack') return stepStack(game, dt);
+			if (game.kind === 'flappy') return stepFlappy(game, dt);
 			return stepBreakout(game, dt);
 		}
 
 		function drawGame(ctx, game, palette) {
 			if (game.kind === 'snake') return drawSnake(ctx, game, palette);
 			if (game.kind === 'reaction') return drawReaction(ctx, game, palette);
+			if (game.kind === '2048') return draw2048(ctx, game, palette);
+			if (game.kind === 'memory') return drawMemory(ctx, game, palette);
+			if (game.kind === 'stack') return drawStack(ctx, game, palette);
+			if (game.kind === 'flappy') return drawFlappy(ctx, game, palette);
 			return drawBreakout(ctx, game, palette);
 		}
 
 		function startOrResume(game) {
-			if (game.kind === 'snake') {
-				if (game.phase === 'over') return resetSnake(game);
+			if (game.kind === 'snake') {				if (game.phase === 'over') return resetSnake(game);
 				if (game.phase === 'ready') {
 					game.phase = 'playing';
 					game.paused = false;
@@ -383,6 +461,18 @@ window.__ModuleLoader__.load({
 				game.paused = false;
 				return;
 			}
+			if (game.kind === '2048' || game.kind === 'memory') {
+				if (game.phase === 'over') resetGame(game);
+				if (game.phase === 'ready') {
+					game.phase = 'playing';
+					game.paused = false;
+					emitSfx(game, 'start');
+				}
+				game.paused = false;
+				return;
+			}
+			if (game.kind === 'stack') return startStack(game);
+			if (game.kind === 'flappy') return startFlappy(game);
 			if (game.phase === 'over') return resetBreakout(game);
 			if (game.phase === 'ready') return serveBreakout(game);
 			game.paused = false;
@@ -426,6 +516,46 @@ window.__ModuleLoader__.load({
 					],
 				};
 			}
+			if (game.kind === '2048') {
+				return {
+					phase: game.phase,
+					paused: game.paused,
+					score: game.score,
+					metrics: [
+						['score', game.score],
+						['tile', game.bestTile],
+					],
+				};
+			}
+			if (game.kind === 'memory') {
+				return {
+					phase: game.phase,
+					paused: game.paused,
+					score: game.pairs,
+					metrics: [
+						['pairs', game.pairs + '/6'],
+						['moves', game.moves],
+					],
+				};
+			}
+			if (game.kind === 'stack') {
+				return {
+					phase: game.phase,
+					paused: game.paused,
+					score: game.score,
+					metrics: [
+						['height', Math.max(0, game.blocks.length - 1)],
+					],
+				};
+			}
+			if (game.kind === 'flappy') {
+				return {
+					phase: game.phase,
+					paused: game.paused,
+					score: game.score,
+					metrics: [['score', game.score]],
+				};
+			}
 			return {
 				phase: game.phase,
 				paused: game.paused,
@@ -458,6 +588,39 @@ window.__ModuleLoader__.load({
 			if (lower === 'r') {
 				resetGame(game);
 				return true;
+			}
+			if (game.kind === '2048') {
+				const move = { arrowleft: 'left', a: 'left', arrowright: 'right', d: 'right', arrowup: 'up', w: 'up', arrowdown: 'down', s: 'down' }[lower];
+				if (move !== undefined) {
+					slide2048(game, move);
+					return true;
+				}
+				if (key === ' ' || key === 'Spacebar' || key === 'Space') {
+					startOrResume(game);
+					return true;
+				}
+				return false;
+			}
+			if (game.kind === 'memory') {
+				if (key === ' ' || key === 'Spacebar' || key === 'Space') {
+					startOrResume(game);
+					return true;
+				}
+				return false;
+			}
+			if (game.kind === 'stack') {
+				if (key === ' ' || key === 'Spacebar' || key === 'Space') {
+					dropStack(game);
+					return true;
+				}
+				return false;
+			}
+			if (game.kind === 'flappy') {
+				if (key === ' ' || key === 'Spacebar' || key === 'Space') {
+					flapFlappy(game);
+					return true;
+				}
+				return false;
 			}
 			if (key === ' ' || key === 'Spacebar' || key === 'Space') {
 				startOrResume(game);
@@ -506,6 +669,10 @@ window.__ModuleLoader__.load({
 		}
 
 		function pointerMove(game, x, y) {
+			if (game.kind === 'memory') {
+				game.hover = memoryCellAt(game, x, y);
+				return;
+			}
 			if (game.kind === 'snake') {
 				if (game.phase !== 'playing' || game.paused) return;
 				const cell = game.cell;
@@ -528,6 +695,31 @@ window.__ModuleLoader__.load({
 		}
 
 		function pointerDown(game, x, y) {
+			if (game.kind === '2048') {
+				startOrResume(game);
+				return;
+			}
+			if (game.kind === 'memory') {
+				if (game.phase === 'over') {
+					resetMemory(game);
+					startMemory(game);
+				} else if (game.phase === 'ready') {
+					startMemory(game);
+				} else if (game.paused) {
+					game.paused = false;
+				}
+				const index = memoryCellAt(game, x, y);
+				if (index !== null) flipMemory(game, index);
+				return;
+			}
+			if (game.kind === 'stack') {
+				dropStack(game);
+				return;
+			}
+			if (game.kind === 'flappy') {
+				flapFlappy(game);
+				return;
+			}
 			if (game.kind === 'reaction') {
 				if (game.phase === 'ready') {
 					startReaction(game);
@@ -1173,6 +1365,601 @@ window.__ModuleLoader__.load({
 		}
 
 		/* ------------------------------------------------------------------ */
+		/* 2048                                                                */
+		/* ------------------------------------------------------------------ */
+
+		function create2048() {
+			const game = {
+				kind: '2048',
+				phase: 'ready',
+				paused: false,
+				score: 0,
+				bestTile: 0,
+				moves: 0,
+				board: [],
+				W: 320,
+				H: STAGE_H,
+				animated: false,
+				sfx: [],
+			};
+			reset2048(game);
+			return game;
+		}
+
+		function reset2048(game) {
+			game.score = 0;
+			game.moves = 0;
+			game.board = new Array(16).fill(0);
+			game.phase = 'ready';
+			game.paused = false;
+			game.animated = false;
+			spawn2048(game);
+			spawn2048(game);
+		}
+
+		function spawn2048(game) {
+			const empty = [];
+			for (let i = 0; i < 16; i += 1) if (game.board[i] === 0) empty.push(i);
+			if (empty.length === 0) return;
+			const index = empty[randomInt(empty.length)];
+			const value = Math.random() < 0.9 ? 2 : 4;
+			game.board[index] = value;
+			game.bestTile = Math.max(game.bestTile, value);
+		}
+
+		function slide2048(game, dir) {
+			if (game.phase === 'over') reset2048(game);
+			if (game.phase === 'ready') {
+				game.phase = 'playing';
+				game.paused = false;
+				emitSfx(game, 'start');
+			}
+			if (game.paused) return;
+			const lines = [];
+			if (dir === 'left' || dir === 'right') {
+				for (let r = 0; r < 4; r += 1) {
+					const line = [];
+					for (let c = 0; c < 4; c += 1) line.push(r * 4 + (dir === 'left' ? c : 3 - c));
+					lines.push(line);
+				}
+			} else {
+				for (let c = 0; c < 4; c += 1) {
+					const line = [];
+					for (let r = 0; r < 4; r += 1) line.push((dir === 'up' ? r : 3 - r) * 4 + c);
+					lines.push(line);
+				}
+			}
+			let moved = false;
+			let gained = 0;
+			for (const line of lines) {
+				const old = line.map((index) => game.board[index]);
+				const values = old.filter((value) => value !== 0);
+				const merged = [];
+				for (let i = 0; i < values.length; i += 1) {
+					if (i + 1 < values.length && values[i] === values[i + 1]) {
+						merged.push(values[i] * 2);
+						gained += values[i] * 2;
+						i += 1;
+					} else {
+						merged.push(values[i]);
+					}
+				}
+				while (merged.length < 4) merged.push(0);
+				for (let i = 0; i < 4; i += 1) {
+					if (old[i] !== merged[i]) moved = true;
+					game.board[line[i]] = merged[i];
+				}
+			}
+			if (!moved) return;
+			game.moves += 1;
+			game.score += gained;
+			spawn2048(game);
+			game.bestTile = Math.max(game.bestTile, ...game.board);
+			emitSfx(game, gained > 0 ? 'eat' : 'move');
+			if (!has2048Moves(game)) {
+				game.phase = 'over';
+				game.paused = true;
+				game.animated = false;
+				emitSfx(game, 'over');
+			}
+		}
+
+		function has2048Moves(game) {
+			for (let i = 0; i < 16; i += 1) if (game.board[i] === 0) return true;
+			for (let r = 0; r < 4; r += 1) {
+				for (let c = 0; c < 4; c += 1) {
+					const value = game.board[r * 4 + c];
+					if (c < 3 && game.board[r * 4 + c + 1] === value) return true;
+					if (r < 3 && game.board[(r + 1) * 4 + c] === value) return true;
+				}
+			}
+			return false;
+		}
+
+		function layout2048(game, width, height) {
+			if (width > 0) game.W = width;
+			if (height > 0) game.H = height;
+		}
+
+		function draw2048(ctx, game, palette) {
+			ctx.clearRect(0, 0, game.W, game.H);
+			const size = Math.max(110, Math.min(game.H - 10, game.W - 24));
+			const gap = Math.max(4, Math.round(size * 0.035));
+			const cell = (size - gap * 5) / 4;
+			const originX = Math.round((game.W - size) / 2);
+			const originY = Math.round((game.H - size) / 2);
+			ctx.fillStyle = palette.layer;
+			ctx.globalAlpha = 0.35;
+			roundRect(ctx, originX, originY, size, size, 10);
+			ctx.fill();
+			ctx.globalAlpha = 1;
+			for (let i = 0; i < 16; i += 1) {
+				const r = Math.floor(i / 4);
+				const c = i % 4;
+				const x = originX + gap + c * (cell + gap);
+				const y = originY + gap + r * (cell + gap);
+				const value = game.board[i];
+				if (value === 0) {
+					ctx.fillStyle = palette.layer;
+					ctx.globalAlpha = 0.45;
+					roundRect(ctx, x, y, cell, cell, Math.max(5, cell * 0.18));
+					ctx.fill();
+					ctx.globalAlpha = 1;
+					continue;
+				}
+				const level = Math.log2(value);
+				const alpha = Math.min(0.86, 0.1 + level * 0.09);
+				ctx.fillStyle = palette.brand;
+				ctx.globalAlpha = alpha;
+				roundRect(ctx, x, y, cell, cell, Math.max(5, cell * 0.18));
+				ctx.fill();
+				ctx.globalAlpha = 1;
+				ctx.fillStyle = alpha > 0.45 ? palette.onBrand : palette.brand;
+				ctx.font = '600 ' + Math.round(cell * 0.34) + 'px -apple-system, "SF Pro Text", "Segoe UI", system-ui, sans-serif';
+				ctx.textAlign = 'center';
+				ctx.textBaseline = 'middle';
+				ctx.fillText(String(value), x + cell / 2, y + cell / 2);
+			}
+		}
+
+		/* ------------------------------------------------------------------ */
+		/* Memory                                                              */
+		/* ------------------------------------------------------------------ */
+
+		function createMemory() {
+			const game = {
+				kind: 'memory',
+				phase: 'ready',
+				paused: false,
+				W: 320,
+				H: STAGE_H,
+				cards: [],
+				first: null,
+				second: null,
+				pending: 0,
+				moves: 0,
+				pairs: 0,
+				hover: null,
+				animated: false,
+				sfx: [],
+			};
+			resetMemory(game);
+			return game;
+		}
+
+		function resetMemory(game) {
+			const values = [];
+			for (let value = 1; value <= 6; value += 1) {
+				values.push(value, value);
+			}
+			for (let i = values.length - 1; i > 0; i -= 1) {
+				const j = randomInt(i + 1);
+				const swap = values[i];
+				values[i] = values[j];
+				values[j] = swap;
+			}
+			game.cards = values.map((value) => ({ value: value, state: 'down' }));
+			game.first = null;
+			game.second = null;
+			game.pending = 0;
+			game.moves = 0;
+			game.pairs = 0;
+			game.phase = 'ready';
+			game.paused = false;
+			game.animated = false;
+			layoutMemory(game, game.W, game.H);
+		}
+
+		function startMemory(game) {
+			if (game.phase === 'over') resetMemory(game);
+			if (game.phase === 'ready') {
+				game.phase = 'playing';
+				game.paused = false;
+				emitSfx(game, 'start');
+			}
+			game.paused = false;
+		}
+
+		function layoutMemory(game, width, height) {
+			if (width > 0) game.W = width;
+			if (height > 0) game.H = height;
+			const margin = 7;
+			const gap = 6;
+			const cardW = (game.W - margin * 2 - gap * 3) / 4;
+			const cardH = (game.H - margin * 2 - gap * 2) / 3;
+			game.cells = [];
+			for (let row = 0; row < 3; row += 1) {
+				for (let col = 0; col < 4; col += 1) {
+					game.cells.push({
+						x: margin + col * (cardW + gap),
+						y: margin + row * (cardH + gap),
+						w: cardW,
+						h: cardH,
+					});
+				}
+			}
+		}
+
+		function memoryCellAt(game, x, y) {
+			for (let i = 0; i < game.cells.length; i += 1) {
+				const cell = game.cells[i];
+				if (x >= cell.x && x <= cell.x + cell.w && y >= cell.y && y <= cell.y + cell.h) return i;
+			}
+			return null;
+		}
+
+		function flipMemory(game, index) {
+			const card = game.cards[index];
+			if (card === undefined || card.state !== 'down') return;
+			if (game.phase === 'ready') startMemory(game);
+			if (game.phase !== 'playing' || game.paused) return;
+			card.state = 'up';
+			emitSfx(game, 'flip');
+			if (game.first === null) {
+				game.first = index;
+				return;
+			}
+			game.second = index;
+			game.moves += 1;
+			const firstCard = game.cards[game.first];
+			if (firstCard.value === card.value) {
+				firstCard.state = 'matched';
+				card.state = 'matched';
+				game.pairs += 1;
+				game.first = null;
+				game.second = null;
+				emitSfx(game, 'match');
+				if (game.pairs >= 6) {
+					game.phase = 'over';
+					game.paused = true;
+					game.animated = false;
+					emitSfx(game, 'done');
+				}
+			} else {
+				game.pending = 0.8;
+				game.animated = true;
+			}
+		}
+
+		function stepMemory(game, dt) {
+			if (game.pending <= 0) return;
+			game.pending -= dt;
+			if (game.pending > 0) return;
+			game.pending = 0;
+			if (game.first !== null) game.cards[game.first].state = 'down';
+			if (game.second !== null) game.cards[game.second].state = 'down';
+			game.first = null;
+			game.second = null;
+			game.animated = false;
+		}
+
+		function drawMemory(ctx, game, palette) {
+			ctx.clearRect(0, 0, game.W, game.H);
+			for (let i = 0; i < game.cells.length; i += 1) {
+				const cell = game.cells[i];
+				const card = game.cards[i];
+				const radius = Math.max(5, Math.min(cell.w, cell.h) * 0.16);
+				ctx.fillStyle = palette.layer;
+				ctx.globalAlpha = card.state === 'down' ? 0.55 : 0.25;
+				roundRect(ctx, cell.x, cell.y, cell.w, cell.h, radius);
+				ctx.fill();
+				ctx.globalAlpha = 1;
+				ctx.strokeStyle = palette.border;
+				ctx.globalAlpha = game.hover === i ? 0.9 : 0.45;
+				roundRect(ctx, cell.x + 0.5, cell.y + 0.5, cell.w - 1, cell.h - 1, radius);
+				ctx.stroke();
+				ctx.globalAlpha = 1;
+				if (card.state === 'down') {
+					ctx.fillStyle = palette.text;
+					ctx.globalAlpha = 0.35;
+					ctx.beginPath();
+					ctx.arc(cell.x + cell.w / 2, cell.y + cell.h / 2, Math.max(2, cell.h * 0.08), 0, Math.PI * 2);
+					ctx.fill();
+					ctx.globalAlpha = 1;
+					continue;
+				}
+				const matched = card.state === 'matched';
+				ctx.fillStyle = palette.brand;
+				ctx.globalAlpha = matched ? 0.14 : 0.8;
+				roundRect(ctx, cell.x, cell.y, cell.w, cell.h, radius);
+				ctx.fill();
+				ctx.globalAlpha = 1;
+				ctx.fillStyle = matched ? palette.text : palette.onBrand;
+				ctx.font = '600 ' + Math.round(Math.min(cell.w, cell.h) * 0.42) + 'px -apple-system, "SF Pro Text", "Segoe UI", system-ui, sans-serif';
+				ctx.textAlign = 'center';
+				ctx.textBaseline = 'middle';
+				ctx.fillText(String(card.value), cell.x + cell.w / 2, cell.y + cell.h / 2);
+			}
+		}
+
+		/* ------------------------------------------------------------------ */
+		/* Stack                                                               */
+		/* ------------------------------------------------------------------ */
+
+		function createStack() {
+			const game = {
+				kind: 'stack',
+				phase: 'ready',
+				paused: false,
+				W: 320,
+				H: STAGE_H,
+				blocks: [],
+				current: null,
+				speed: 72,
+				score: 0,
+				animated: false,
+				sfx: [],
+			};
+			resetStack(game);
+			return game;
+		}
+
+		function resetStack(game) {
+			const width = Math.round(clamp(game.W * 0.4, 100, 190));
+			game.blocks = [{ x: Math.round((game.W - width) / 2), width: width }];
+			game.current = { x: 8, width: width, dir: 1 };
+			game.speed = 72;
+			game.score = 0;
+			game.phase = 'ready';
+			game.paused = false;
+			game.animated = false;
+		}
+
+		function startStack(game) {
+			if (game.phase === 'over') resetStack(game);
+			if (game.phase === 'ready') {
+				game.phase = 'playing';
+				game.paused = false;
+				game.animated = true;
+				emitSfx(game, 'start');
+			}
+			game.paused = false;
+			game.animated = true;
+		}
+
+		function layoutStack(game, width, height) {
+			if (width > 0) game.W = width;
+			if (height > 0) game.H = height;
+			if (game.phase === 'ready' && game.blocks.length <= 1) {
+				const blockWidth = Math.round(clamp(game.W * 0.4, 100, 190));
+				game.blocks = [{ x: Math.round((game.W - blockWidth) / 2), width: blockWidth }];
+				game.current = { x: 8, width: blockWidth, dir: 1 };
+			}
+		}
+
+		function dropStack(game) {
+			if (game.phase === 'over') {
+				resetStack(game);
+				startStack(game);
+				return;
+			}
+			if (game.phase === 'ready') {
+				startStack(game);
+				return;
+			}
+			if (game.paused) {
+				game.paused = false;
+				game.animated = true;
+				return;
+			}
+			const top = game.blocks[game.blocks.length - 1];
+			const current = game.current;
+			const left = Math.max(current.x, top.x);
+			const right = Math.min(current.x + current.width, top.x + top.width);
+			const overlap = right - left;
+			if (overlap <= 0 || overlap < 6) {
+				game.phase = 'over';
+				game.paused = true;
+				game.animated = false;
+				emitSfx(game, 'die');
+				emitSfx(game, 'over');
+				return;
+			}
+			const perfect = Math.abs(overlap - current.width) <= 2;
+			const width = perfect ? current.width : overlap;
+			const x = perfect ? current.x : left;
+			game.blocks.push({ x: x, width: width });
+			game.score = game.blocks.length - 1;
+			game.speed = Math.min(190, 72 + game.blocks.length * 6);
+			game.current = { x: 8, width: width, dir: 1 };
+			emitSfx(game, perfect ? 'perfect' : 'drop');
+			game.animated = true;
+		}
+
+		function stepStack(game, dt) {
+			if (game.phase !== 'playing' || game.paused) return;
+			const current = game.current;
+			current.x += current.dir * game.speed * dt;
+			if (current.x <= 6) {
+				current.x = 6;
+				current.dir = 1;
+			} else if (current.x + current.width >= game.W - 6) {
+				current.x = game.W - 6 - current.width;
+				current.dir = -1;
+			}
+		}
+
+		function drawStack(ctx, game, palette) {
+			ctx.clearRect(0, 0, game.W, game.H);
+			const blockH = 14;
+			const scroll = Math.max(0, (game.blocks.length + 1) * blockH - (game.H - 22));
+			for (let i = 0; i < game.blocks.length; i += 1) {
+				const block = game.blocks[i];
+				const y = game.H - 10 - (i + 1) * blockH + scroll;
+				ctx.fillStyle = palette.brand;
+				ctx.globalAlpha = Math.min(0.78, 0.22 + i * 0.02);
+				roundRect(ctx, block.x, y, block.width, blockH - 2, 3);
+				ctx.fill();
+				ctx.globalAlpha = 1;
+			}
+			const y = game.H - 10 - (game.blocks.length + 1) * blockH + scroll;
+			ctx.fillStyle = palette.brand;
+			ctx.globalAlpha = 0.92;
+			roundRect(ctx, game.current.x, y, game.current.width, blockH - 2, 3);
+			ctx.fill();
+			ctx.globalAlpha = 1;
+		}
+
+		/* ------------------------------------------------------------------ */
+		/* Flappy                                                              */
+		/* ------------------------------------------------------------------ */
+
+		function createFlappy() {
+			const game = {
+				kind: 'flappy',
+				phase: 'ready',
+				paused: false,
+				W: 320,
+				H: STAGE_H,
+				bird: { x: 66, y: STAGE_H / 2, r: 5.5, vy: 0 },
+				pipes: [],
+				score: 0,
+				spawnTimer: 0,
+				gap: 52,
+				pipeW: 26,
+				speed: 104,
+				animated: false,
+				sfx: [],
+			};
+			resetFlappy(game);
+			return game;
+		}
+
+		function resetFlappy(game) {
+			game.bird = { x: 66, y: game.H / 2, r: 5.5, vy: 0 };
+			game.pipes = [];
+			game.score = 0;
+			game.spawnTimer = 0;
+			game.phase = 'ready';
+			game.paused = false;
+			game.animated = false;
+		}
+
+		function startFlappy(game) {
+			if (game.phase === 'over') resetFlappy(game);
+			if (game.phase === 'ready') {
+				game.phase = 'playing';
+				game.paused = false;
+				game.animated = true;
+				emitSfx(game, 'start');
+			}
+			game.paused = false;
+			game.animated = true;
+		}
+
+		function flapFlappy(game) {
+			if (game.phase === 'over') {
+				resetFlappy(game);
+				startFlappy(game);
+				game.bird.vy = -190;
+				return;
+			}
+			if (game.phase === 'ready') startFlappy(game);
+			if (game.paused) {
+				game.paused = false;
+				game.animated = true;
+			}
+			game.bird.vy = -190;
+			emitSfx(game, 'flap');
+		}
+
+		function layoutFlappy(game, width, height) {
+			if (width > 0) game.W = width;
+			if (height > 0) game.H = height;
+		}
+
+		function stepFlappy(game, dt) {
+			if (game.phase !== 'playing' || game.paused) return;
+			const bird = game.bird;
+			bird.vy += 620 * dt;
+			bird.y += bird.vy * dt;
+			if (bird.y - bird.r < 2 || bird.y + bird.r > game.H - 2) {
+				game.phase = 'over';
+				game.paused = true;
+				game.animated = false;
+				emitSfx(game, 'die');
+				return;
+			}
+			if (game.pipes.length === 0 || game.spawnTimer <= 0) {
+				const gapY = 24 + randomInt(Math.max(1, game.H - game.gap - 48));
+				game.pipes.push({ x: game.W + game.pipeW, gapY: gapY, passed: false });
+				game.spawnTimer = 1.35;
+			}
+			game.spawnTimer -= dt;
+			game.speed = 104 + Math.min(80, game.score * 2);
+			for (let i = game.pipes.length - 1; i >= 0; i -= 1) {
+				const pipe = game.pipes[i];
+				pipe.x -= game.speed * dt;
+				if (!pipe.passed && pipe.x + game.pipeW < bird.x - bird.r) {
+					pipe.passed = true;
+					game.score += 1;
+					emitSfx(game, 'point');
+				}
+				const insideX = bird.x + bird.r > pipe.x && bird.x - bird.r < pipe.x + game.pipeW;
+				if (insideX) {
+					const top = pipe.gapY - game.gap / 2;
+					const bottom = pipe.gapY + game.gap / 2;
+					if (bird.y - bird.r < top || bird.y + bird.r > bottom) {
+						game.phase = 'over';
+						game.paused = true;
+						game.animated = false;
+						emitSfx(game, 'die');
+						return;
+					}
+				}
+				if (pipe.x + game.pipeW < -10) game.pipes.splice(i, 1);
+			}
+		}
+
+		function drawFlappy(ctx, game, palette) {
+			ctx.clearRect(0, 0, game.W, game.H);
+			ctx.fillStyle = palette.layer;
+			ctx.globalAlpha = 0.28;
+			ctx.fillRect(0, game.H - 5, game.W, 5);
+			ctx.globalAlpha = 1;
+			for (const pipe of game.pipes) {
+				const top = pipe.gapY - game.gap / 2;
+				const bottom = pipe.gapY + game.gap / 2;
+				ctx.fillStyle = palette.brand;
+				ctx.globalAlpha = 0.55;
+				roundRect(ctx, pipe.x, 0, game.pipeW, Math.max(0, top), 4);
+				ctx.fill();
+				roundRect(ctx, pipe.x, bottom, game.pipeW, Math.max(0, game.H - bottom), 4);
+				ctx.fill();
+				ctx.globalAlpha = 1;
+			}
+			const bird = game.bird;
+			ctx.fillStyle = palette.brand;
+			ctx.beginPath();
+			ctx.arc(bird.x, bird.y, bird.r, 0, Math.PI * 2);
+			ctx.fill();
+			ctx.fillStyle = palette.onBrand;
+			ctx.beginPath();
+			ctx.arc(bird.x + 1.5, bird.y - 1.5, 1.4, 0, Math.PI * 2);
+			ctx.fill();
+		}
+
+		/* ------------------------------------------------------------------ */
 		/* Drawing helpers / palette                                           */
 		/* ------------------------------------------------------------------ */
 
@@ -1247,8 +2034,16 @@ window.__ModuleLoader__.load({
 		/* closes. It never edits the host's rendered text.                   */
 		/* ------------------------------------------------------------------ */
 
-		const TAB_KEYS = { breakout: 'tabBreakout', snake: 'tabSnake', reaction: 'tabReaction' };
-		const METRIC_KEYS = { score: 'score', level: 'level', lives: 'lives', length: 'length', hits: 'hits', avg: 'avg', misses: 'misses' };
+		const TAB_KEYS = {
+			breakout: 'tabBreakout',
+			snake: 'tabSnake',
+			reaction: 'tabReaction',
+			'2048': 'tab2048',
+			memory: 'tabMemory',
+			stack: 'tabStack',
+			flappy: 'tabFlappy',
+		};
+		const METRIC_KEYS = { score: 'score', level: 'level', lives: 'lives', length: 'length', hits: 'hits', avg: 'avg', misses: 'misses', tile: 'tile', pairs: 'pairs', moves: 'moves', height: 'height' };
 
 		/* Central adapter contract. DSH markup is not a public extension API, so keep
 		 * every selector here and warn (once) instead of silently rendering nothing
@@ -1298,6 +2093,10 @@ window.__ModuleLoader__.load({
 			if (current.phase === 'over') return false;
 			if (current.kind === 'breakout') return current.score > 0 || current.level > 1 || current.lives < 3;
 			if (current.kind === 'snake') return current.score > 0;
+			if (current.kind === '2048') return current.score > 0;
+			if (current.kind === 'memory') return current.pairs > 0;
+			if (current.kind === 'stack') return Array.isArray(current.blocks) && current.blocks.length > 1;
+			if (current.kind === 'flappy') return current.score > 0;
 			return current.hits > 0;
 		}
 
@@ -1581,7 +2380,7 @@ window.__ModuleLoader__.load({
 			let snoozeUntil = 0;
 			let snoozeDay = '';
 			let pinned = '';
-			let best = { breakout: 0, snake: 0, reaction: 0 };
+			let best = { breakout: 0, snake: 0, reaction: 0, '2048': 0, memory: 0, stack: 0, flappy: 0 };
 			try {
 				snoozeUntil = Number(window.localStorage.getItem('dsh-think-game:snooze-until') || 0) || 0;
 				snoozeDay = window.localStorage.getItem('dsh-think-game:snooze-day') || '';
@@ -1590,6 +2389,10 @@ window.__ModuleLoader__.load({
 				best.breakout = Math.max(0, Number(rawBest.breakout) || 0);
 				best.snake = Math.max(0, Number(rawBest.snake) || 0);
 				best.reaction = Math.max(0, Number(rawBest.reaction) || 0);
+				best['2048'] = Math.max(0, Number(rawBest['2048']) || 0);
+				best.memory = Math.max(0, Number(rawBest.memory) || 0);
+				best.stack = Math.max(0, Number(rawBest.stack) || 0);
+				best.flappy = Math.max(0, Number(rawBest.flappy) || 0);
 			} catch (error) {
 				snoozeUntil = 0;
 				snoozeDay = '';
@@ -1621,6 +2424,23 @@ window.__ModuleLoader__.load({
 						changed = true;
 					}
 				}
+				if (games['2048'] !== undefined && games['2048'].score > best['2048']) {
+					best['2048'] = games['2048'].score;
+					changed = true;
+				}
+				const memory = games.memory;
+				if (memory !== undefined && memory.phase === 'over' && memory.pairs >= 6 && (best.memory === 0 || memory.moves < best.memory)) {
+					best.memory = memory.moves;
+					changed = true;
+				}
+				if (games.stack !== undefined && games.stack.blocks.length - 1 > best.stack) {
+					best.stack = games.stack.blocks.length - 1;
+					changed = true;
+				}
+				if (games.flappy !== undefined && games.flappy.score > best.flappy) {
+					best.flappy = games.flappy.score;
+					changed = true;
+				}
 				if (changed) {
 					try { window.localStorage.setItem('dsh-think-game:best', JSON.stringify(best)); } catch (error) { /* ignore */ }
 				}
@@ -1632,6 +2452,10 @@ window.__ModuleLoader__.load({
 					breakout: ['bestScore', best.breakout],
 					snake: ['bestLength', best.snake],
 					reaction: ['bestAvg', best.reaction],
+					'2048': ['bestScore', best['2048']],
+					memory: ['bestMoves', best.memory],
+					stack: ['bestHeight', best.stack],
+					flappy: ['bestScore', best.flappy],
 				};
 				for (const gameKind of Object.keys(entries)) {
 					const el = ui.bestEls[gameKind];
@@ -1870,7 +2694,7 @@ window.__ModuleLoader__.load({
 				if (Array.isArray(current.sfx)) {
 					while (current.sfx.length > 0) sfx.play(current.sfx.shift());
 				}
-				const playing = !closing && current.phase === 'playing' && !current.paused;
+				const playing = !closing && current.phase === 'playing' && !current.paused && current.animated !== false;
 				const last = lastTs;
 				lastTs = ts;
 				if (playing) {

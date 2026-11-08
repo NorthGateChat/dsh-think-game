@@ -12,7 +12,7 @@ import vm from 'node:vm';
 const source = readFileSync(new URL('../client.js', import.meta.url), 'utf8');
 const patched = source.replace(
 	"return { inject: ['locale'], apply: apply };",
-	"return { inject: ['locale'], apply: apply, __internals: { createGame, resetGame, layoutGame, stepGame, startOrResume, togglePause, hudOf, sameHud, keyDown, keyUp, pointerDown, pointerMove, drawGame, createSfx, KINDS } };",
+	"return { inject: ['locale'], apply: apply, __internals: { createGame, resetGame, layoutGame, stepGame, startOrResume, togglePause, hudOf, sameHud, keyDown, keyUp, pointerDown, pointerMove, drawGame, createSfx, KINDS, slide2048, flipMemory, dropStack, flapFlappy } };",
 );
 if (patched === source) throw new Error('test harness could not expose internals');
 
@@ -174,8 +174,8 @@ check('no longer replaces the reasoning body slot', () => {
 /* ------------------------------------------------------------------ */
 const internals = mod.__internals;
 
-check('exposes three game kinds', () => {
-	equal(JSON.stringify(internals.KINDS), JSON.stringify(['breakout', 'snake', 'reaction']));
+check('exposes seven game kinds', () => {
+	equal(JSON.stringify(internals.KINDS), JSON.stringify(['breakout', 'snake', 'reaction', '2048', 'memory', 'stack', 'flappy']));
 });
 
 check('sfx kit is safe without WebAudio and mute can be toggled', () => {
@@ -415,8 +415,70 @@ check('reaction: click on the active cell scores through the pointer path', () =
 /* ------------------------------------------------------------------ */
 /* HUD                                                                 */
 /* ------------------------------------------------------------------ */
-check('hud exposes per-game metric sets and stays stable', () => {
-	const b = internals.hudOf(internals.createGame('breakout'));
+check('2048: starts with two tiles and responds to an arrow key', () => {
+	const game = internals.createGame('2048');
+	internals.layoutGame(game, 480, 150);
+	equal(game.board.filter((value) => value !== 0).length, 2);
+	internals.keyDown(game, 'ArrowLeft');
+	equal(game.phase, 'playing');
+	assert(game.board.filter((value) => value !== 0).length >= 2, 'tiles remain');
+});
+
+check('2048: merging two equal tiles scores', () => {
+	const game = internals.createGame('2048');
+	game.phase = 'playing';
+	game.board = [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	internals.slide2048(game, 'left');
+	equal(game.board[0], 4);
+	assert(game.score >= 4, 'merge score');
+});
+
+check('memory: matched cards stay matched and count a pair', () => {
+	const game = internals.createGame('memory');
+	game.cards[0].value = 3;
+	game.cards[1].value = 3;
+	internals.layoutGame(game, 480, 150);
+	internals.pointerDown(game, game.cells[0].x + 2, game.cells[0].y + 2);
+	internals.pointerDown(game, game.cells[1].x + 2, game.cells[1].y + 2);
+	equal(game.pairs, 1);
+	equal(game.cards[0].state, 'matched');
+	equal(game.cards[1].state, 'matched');
+});
+
+check('memory: click starts the game and flips a card', () => {
+	const game = internals.createGame('memory');
+	internals.layoutGame(game, 480, 150);
+	const cell = game.cells[0];
+	internals.pointerDown(game, cell.x + cell.w / 2, cell.y + cell.h / 2);
+	equal(game.phase, 'playing');
+	equal(game.cards[0].state, 'up');
+});
+
+check('stack: drop adds a block above the tower', () => {
+	const game = internals.createGame('stack');
+	internals.layoutGame(game, 480, 150);
+	internals.startOrResume(game);
+	equal(game.phase, 'playing');
+	game.current.x = game.blocks[0].x;
+	const before = game.blocks.length;
+	internals.keyDown(game, ' ');
+	equal(game.blocks.length, before + 1);
+	assert(game.animated === true, 'falling block animation continues');
+});
+
+check('flappy: starts and flaps upward', () => {
+	const game = internals.createGame('flappy');
+	internals.layoutGame(game, 480, 150);
+	internals.startOrResume(game);
+	equal(game.phase, 'playing');
+	game.bird.vy = 0;
+	internals.keyDown(game, ' ');
+	assert(game.bird.vy < 0, 'flap sets upward velocity');
+	internals.stepGame(game, 0.06);
+	assert(game.pipes.length >= 1, 'first pipe spawned');
+});
+
+check('hud exposes per-game metric sets and stays stable', () => {	const b = internals.hudOf(internals.createGame('breakout'));
 	const s = internals.hudOf(internals.createGame('snake'));
 	const r = internals.hudOf(internals.createGame('reaction'));
 	equal(b.metrics.length, 3);
@@ -425,7 +487,7 @@ check('hud exposes per-game metric sets and stays stable', () => {
 	assert(internals.sameHud(b, internals.hudOf(internals.createGame('breakout'))), 'same hud');
 });
 
-check('layout resizes all three games', () => {
+check('layout resizes all games', () => {
 	for (const kind of internals.KINDS) {
 		const game = internals.createGame(kind);
 		internals.layoutGame(game, 640, 150);
