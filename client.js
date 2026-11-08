@@ -2671,7 +2671,7 @@ window.__ModuleLoader__.load({
 				}
 				ui.challengeLabel.textContent = tr(ui.t, pinned === '' ? 'challenge' : 'challengePinned');
 				ui.challengeName.textContent = tr(ui.t, TAB_KEYS[kind]);
-				ui.switchBtn.setAttribute('aria-label', tr(ui.t, 'switchGame') + '：' + tr(ui.t, TAB_KEYS[kind]));
+				ui.switchBtn.setAttribute('aria-label', tr(ui.t, 'switchGame') + ' · ' + tr(ui.t, TAB_KEYS[kind]));
 				if (ui.sound !== null) {
 					const muted = sfx.isMuted();
 					ui.sound.innerHTML = muted ? ICONS.soundOff : ICONS.sound;

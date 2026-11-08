@@ -162,6 +162,11 @@ check('registers the locale namespace with key parity and new game copy', () => 
 	equal(zh.tabSnake, '贪吃蛇');
 	equal(zh.tabReaction, '反应力');
 	assert(en['hint.snake'].length > 0 && zh['hint.reaction'].length > 0, 'per-game hints');
+	equal(en.tab2048, '2048');
+	equal(en.tabMemory, 'Memory');
+	equal(en.tabStack, 'Stack');
+	equal(en.tabFlappy, 'Flappy');
+	assert(en['hint.memory'].length > 0 && en['2048.ready'].length > 0, 'localized new-game copy');
 });
 
 check('no longer replaces the reasoning body slot', () => {
