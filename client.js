@@ -1705,7 +1705,7 @@ window.__ModuleLoader__.load({
 				H: STAGE_H,
 				blocks: [],
 				current: null,
-				speed: 72,
+				speed: 200,
 				score: 0,
 				animated: false,
 				sfx: [],
@@ -1718,7 +1718,7 @@ window.__ModuleLoader__.load({
 			const width = Math.round(clamp(game.W * 0.4, 100, 190));
 			game.blocks = [{ x: Math.round((game.W - width) / 2), width: width }];
 			game.current = { x: 8, width: width, dir: 1 };
-			game.speed = 72;
+			game.speed = 200;
 			game.score = 0;
 			game.phase = 'ready';
 			game.paused = false;
@@ -1780,7 +1780,7 @@ window.__ModuleLoader__.load({
 			const x = perfect ? current.x : left;
 			game.blocks.push({ x: x, width: width });
 			game.score = game.blocks.length - 1;
-			game.speed = Math.min(190, 72 + game.blocks.length * 6);
+			game.speed = Math.min(380, 200 + game.blocks.length * 14);
 			game.current = { x: 8, width: width, dir: 1 };
 			emitSfx(game, perfect ? 'perfect' : 'drop');
 			game.animated = true;
