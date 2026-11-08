@@ -1,0 +1,17 @@
+<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Think arcade">
+  <defs>
+    <linearGradient id="tg_stick" x1="18" y1="8" x2="27" y2="26" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#69B9FF" />
+      <stop offset="1" stop-color="#324DE2" />
+    </linearGradient>
+    <linearGradient id="tg_base" x1="7" y1="25" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#45E7A4" />
+      <stop offset="1" stop-color="#05909D" />
+    </linearGradient>
+  </defs>
+  <path d="M19.8 24.6 21.6 14.6" stroke="url(#tg_stick)" stroke-width="2.4" stroke-linecap="round" />
+  <circle cx="22.1" cy="10.9" r="3.8" fill="url(#tg_stick)" />
+  <rect x="6.4" y="24.6" width="23.2" height="5.2" rx="2.6" fill="url(#tg_base)" />
+  <circle cx="13.2" cy="27.2" r="1.1" fill="#ffffff" fill-opacity=".9" />
+  <circle cx="16.6" cy="27.2" r=".8" fill="#ffffff" fill-opacity=".6" />
+</svg>
