@@ -5,6 +5,8 @@
 在会话流里，紧挨着正在运行的那一行 **「深度求索中，用时 36秒 ···」思考模块下方**，自动出现一个轻量游戏面板。
 不需要展开思考内容；思考/工作过程结束时面板冻结并淡出，收起后不留痕迹。
 
+**English**: a dependency-free DSH client plugin that puts a compact, theme-aware arcade directly below the live reasoning module. Seven small games (Breakout, Snake, Reflex, 2048, Memory, Stack, Flappy) share one minimal DSH-style panel. It appears while the model works, auto-pauses and fades when the answer starts, supports random rotation or a pinned game, remembers best scores, and keeps keyboard input isolated from the composer. An optional “Continue” entry lets you finish a run after the answer starts. MIT licensed.
+
 | 游戏 | 操作 | 计分 |
 |---|---|---|
 | 砖块（Breakout） | 鼠标移动挡板 / `←` `→`，点击或 `Space` 发球 | 得分、关卡、剩余机会（每局随机砖块布局） |
