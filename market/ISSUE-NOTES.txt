@@ -1,0 +1,2 @@
+Inline mini-game arcade that appears below the live reasoning module in the DSH chat flow. 7 games (Breakout, Snake, Reflex, 2048, Memory, Stack, Flappy), auto-pauses/fades when the answer starts, optional continue entry, random/pinned game, best scores, optional WebAudio sound, no runtime dependencies. Tested on DSH 0.2.2-rc.1. MIT.
+流式思考下方的轻量小游戏：七款游戏（打砖块/贪吃蛇/反应力/2048/记忆翻牌/堆塔/飞行），思考结束自动暂停/淡出，可继续上一局，支持随机/固定、最佳成绩、可选音效，零运行时依赖，MIT。
