@@ -6,7 +6,7 @@ A lightweight arcade panel that appears in the conversation flow, directly below
 **“Deep diving · 36s ···”** reasoning module. No need to expand the Think row; when the
 thinking/working process ends the panel pauses, fades out and leaves no residue in history.
 
-**中文**: [README.md](README.md)
+**中文**: [README.md](README.md) · [▶ 31-second launch video](docs/demo/think-game-launch.mp4)
 
 ## Demos
 
